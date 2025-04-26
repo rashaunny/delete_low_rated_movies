@@ -76,7 +76,12 @@ def find_movies_to_delete(folder_path):
 
     for root, _, files in os.walk(folder_path):
         for file in files:
+            # Only video files in declaration
             if Path(file).suffix.lower() not in VIDEO_EXTENSIONS:
+                continue
+
+            # Skip if 'sample' or 'trailer' in filename
+            if re.search(r'\b(sample|trailer)\b', file, re.IGNORECASE):
                 continue
 
             path = os.path.join(root, file)
