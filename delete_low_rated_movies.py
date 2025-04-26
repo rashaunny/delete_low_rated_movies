@@ -86,6 +86,9 @@ def find_movies_to_delete(folder_path):
             year_match = re.search(r'\b(\d{4})\b', title)
             year = year_match.group(1) if year_match else None
 
+            # Debugging output: Check if the year is being correctly extracted
+            print(f"Trying to query for title: {title} with year: {year}")
+
             # Query TMDb with title and year (if available)
             rating = query_tmdb(title, year)
 
