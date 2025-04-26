@@ -10,7 +10,7 @@ from pathlib import Path
 TMDB_API_KEY = "5d492845372e8c4e96ac12c0f3969738"
 
 # Minimum IMDb rating threshold
-RATING_THRESHOLD = 5.0
+RATING_THRESHOLD = 6.0
 
 # Supported video file extensions
 VIDEO_EXTENSIONS = {'.mp4', '.mkv', '.avi', '.mov'}
@@ -105,6 +105,9 @@ def find_movies_to_delete(folder_path):
             rating = query_tmdb(title_without_year, year)
 
             if rating is not None:
+                if rating == 0:
+                    print(f"Skipping {title} (False 0 IMDb rating :/)")
+                    continue  # Skip files with a 0 rating, as they are not reliable
                 print(f"Found: {title} : Rating: {rating}")
                 if rating < RATING_THRESHOLD:
                     to_delete.append((path, title, rating))
