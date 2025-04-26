@@ -1,0 +1,20 @@
+python delete_low_rated_movies.py "D:/_Movies"
+Trying to query for title:  with year: 2012
+Could not find rating for: 2012 2009 BRRip H264 SecretMyth (Kingdom Release) 2012 2009 BRRip H264 SecretMyth (Kingdom-Release).mkv -> Tried: 2012
+Could not find rating for: Adventureland 720p BluRay x264 REFiNED refined-adventureland-720p.mkv -> Tried: Adventureland REFiNED refined adventureland
+Trying to query for title: Aladdin with year: 1992
+Found: Aladdin 1992 : Rating: 7.651
+Trying to query for title: Broken Arrow with year: 1996
+Found: Broken Arrow 1996 : Rating: 6.064
+Trying to query for title: Burn After Reading 2 with year: None
+Could not find rating for: Burn After Reading 2.mkv -> Tried: Burn After Reading 2
+Trying to query for title: Burn After Reading with year: None
+Found: Burn After Reading : Rating: 6.656
+Trying to query for title: Score with year: 2001
+Found: Score 2001 : Rating: 0.0
+Trying to query for title: The Ring 2 with year: 2007
+Found: The Ring 2 2007 : Rating: 0.0
+Trying to query for title: This Is Spinal Tap with year: 1984
+Found: This Is Spinal Tap 1984 : Rating: 7.417
+[Dry Run] Would delete: Score 2001 (0.0) - D:/_Movies\Score 2001 BRRip H264 5 1 ch SecretMyth (Kingdom Release) The Score 2001 BRRip H264 5.1 ch-SecretMyth (Kingdom-Release).mkv
+[Dry Run] Would delete: The Ring 2 2007 (0.0) - D:/_Movies\The Ring 2 (2007) [720p].mkv
