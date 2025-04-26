@@ -36,10 +36,14 @@ def clean_title(filename):
     name = CLEANUP_REGEX.sub('', name)
     name = re.sub(r'\s+', ' ', name).strip()
 
-    # Truncate title to end at the year (e.g., "Movie Title 2012 whatever" → "Movie Title 2012")
-    match = YEAR_CUTOFF_REGEX.search(name)
+    # Truncate at the first 4-digit year and discard anything after
+    match = re.search(r'\b(\d{4})\b', name)
     if match:
-        name = f"{match.group(1).strip()} {match.group(2)}"
+        cutoff_index = match.end()
+        name = name[:cutoff_index].strip()
+    
+    # Remove stray parentheses that may be left around the year
+    name = re.sub(r'[()]', '', name).strip()
 
     return name
 
