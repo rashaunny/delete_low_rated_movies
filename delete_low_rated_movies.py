@@ -48,12 +48,15 @@ def clean_title(filename):
 
     return name
 
-
-def query_tmdb(title):
+# Updated query_tmdb function that now accepts year as a parameter
+def query_tmdb(title, year=None):
     params = {
         "api_key": TMDB_API_KEY,
         "query": title,
     }
+    if year:
+        params["year"] = year  # Pass the year as a parameter if it's available
+
     try:
         response = requests.get(TMDB_SEARCH_URL, params=params)
         data = response.json()
@@ -78,7 +81,13 @@ def find_movies_to_delete(folder_path):
 
             path = os.path.join(root, file)
             title = clean_title(file)
-            rating = query_tmdb(title)
+
+            # Extract year if possible
+            year_match = re.search(r'\b(\d{4})\b', title)
+            year = year_match.group(1) if year_match else None
+
+            # Query TMDb with title and year (if available)
+            rating = query_tmdb(title, year)
 
             if rating is not None:
                 print(f"Found: {title} : Rating: {rating}")
