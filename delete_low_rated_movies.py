@@ -30,6 +30,7 @@ YEAR_CUTOFF_REGEX = re.compile(r"(.*?)\b(\d{4})\b")
 
 # === CORE FUNCTIONS ===
 
+
 def clean_title(filename):
     name = Path(filename).stem
     name = name.replace('.', ' ').replace('_', ' ').replace('-', ' ')
@@ -41,11 +42,12 @@ def clean_title(filename):
     if match:
         cutoff_index = match.end()
         name = name[:cutoff_index].strip()
-    
+
     # Remove stray parentheses that may be left around the year
     name = re.sub(r'[()]', '', name).strip()
 
     return name
+
 
 def query_tmdb(title):
     params = {
@@ -58,11 +60,13 @@ def query_tmdb(title):
         if data["results"]:
             movie = data["results"][0]
             movie_id = movie["id"]
-            details = requests.get(TMDB_DETAILS_URL.format(movie_id), params={"api_key": TMDB_API_KEY}).json()
+            details = requests.get(TMDB_DETAILS_URL.format(
+                movie_id), params={"api_key": TMDB_API_KEY}).json()
             return details.get("vote_average", 0.0)
     except Exception as e:
         print(f"Error querying TMDb for {title}: {e}")
     return None
+
 
 def find_movies_to_delete(folder_path):
     to_delete = []
@@ -85,10 +89,13 @@ def find_movies_to_delete(folder_path):
 
     return to_delete
 
+
 def main():
-    parser = argparse.ArgumentParser(description="Delete movies with IMDb rating below a threshold.")
+    parser = argparse.ArgumentParser(
+        description="Delete movies with IMDb rating below a threshold.")
     parser.add_argument("path", help="Path to scan for movies")
-    parser.add_argument("--dry", action="store_true", default=True, help="Perform a dry run (default)")
+    parser.add_argument("--dry", action="store_true",
+                        default=True, help="Perform a dry run (default)")
 
     args = parser.parse_args()
     results = find_movies_to_delete(args.path)
@@ -106,6 +113,7 @@ def main():
                 print(f"Deleted: {path}")
             except Exception as e:
                 print(f"Failed to delete {path}: {e}")
+
 
 if __name__ == "__main__":
     main()
